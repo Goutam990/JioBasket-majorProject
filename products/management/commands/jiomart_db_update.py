@@ -1,7 +1,8 @@
+import json
 import requests
 
 from django.core.management.base import BaseCommand
-from products.models import JioProduct
+from products.models import Product
 
 from products.product_list import jiomart as product_ids
 
@@ -25,18 +26,19 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         for product_id in product_ids:
             data = self.fetch_product_data(product_id)
+            print(json.dumps(data, indent=4))
 
             if data.get('status') == 'success' and data.get('data'):
                 product_info = data['data']
                 
-                JioProduct.objects.update_or_create(
-                    id=product_id,
+                Product.objects.update_or_create(
                     name = product_info.get('gtm_details', {}).get('name'),
                     price = product_info.get('selling_price'),
                     mrp = product_info.get('mrp'),
                     discount = product_info.get('discount'),
                     availability_status = product_info.get('availability_status'),
                     image_url = product_info.get('image_url'),
+                    vendor="jiomart",
                 )
             else:
                 self.stderr.write(f"No product data found for ID: {product_id}. API response: {data}")

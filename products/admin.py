@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import JioProduct
+from .models import Product
 
 # Register your models here.
-admin.site.register(JioProduct)
+admin.site.register(Product)
