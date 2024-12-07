@@ -1,0 +1,19 @@
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-size: cover;
+    background-position: center;
+}
+
+h-screen {
+    height: 100vh;
+}
+
+.translate-y-12 {
+    transform: translateY(3rem);
+}
+
+input::placeholder {
+    color: #A0AEC0;
+}
+

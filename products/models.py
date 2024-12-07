@@ -11,6 +11,9 @@ class Product(models.Model):
     category = models.CharField(max_length=255, null=True, blank=True)
     brand = models.CharField(max_length=100, null=True, blank=True)
     vendor = models.CharField(max_length=10)
+    quantity = models.IntegerField(null=True, blank=True)
+    unit = models.CharField(max_length=20, null=True, blank=True)
+    absolute_url = models.URLField(max_length=400, null=True, blank=True)
 
     def __str__(self):
         return self.name

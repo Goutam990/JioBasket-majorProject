@@ -1,0 +1,22 @@
+
+  .highlight-filter {
+    background-color: #111827; 
+    color: #ffffff; 
+    padding: 8px 16px; 
+    border-radius: 8px; 
+    display: inline-block; 
+}
+
+.highlight-jio {
+    background-color: #e30613; 
+    color: #ffffff;
+    padding: 8px 16px; 
+    border-radius: 8px;   
+}
+
+.highlight-bb {
+    background-color: #5d9400; 
+    color: #ffffff; 
+    padding: 8px 16px; 
+    border-radius: 8px; 
+}

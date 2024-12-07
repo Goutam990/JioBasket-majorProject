@@ -1,0 +1,158 @@
+{% extends 'products/base.html' %}
+{% load static %}
+
+{% block title %}
+    JioBasket - Search Results
+{% endblock title %}
+        
+
+{% block links %}
+    <link href="{% static 'css/customMain.css' %}" rel="stylesheet">
+    <script>
+    </script>
+{% endblock links %}
+    
+
+{% block content %}
+    <!-- Search Bar -->
+    <header class="bg-white p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <img src="{% static 'imgs/jiobasket-icon.png' %}" alt="JIOBASKET Logo" class="w-48 h-auto" />
+            <div class="relative w-full max-w-lg">
+                <input 
+                    name="q"
+                    type="text" 
+                    
+                    {% if query %}
+                        value="{{query}}"
+                    {% else %}
+                        value=""
+                    {% endif %}
+                        
+                    id="search-bar" 
+                    placeholder="Search for products" 
+                    class="w-full p-3 pl-14 pr-12 border border-gray-300 rounded-full bg-gray-50 shadow-sm focus:outline-none focus:ring-4 focus:ring-indigo-300 focus:border-transparent transition-transform transform hover:scale-105"
+                    hx-get="{% url 'search' %}"
+                    hx-trigger="keyup[target.value.length > 1] delay:500ms"
+                    hx-target="#product-section"
+                    hx-push-url="true"
+                >
+                
+                <button 
+                    id="search-button" 
+                    class="absolute left-4 top-1/2 transform -translate-y-1/2">
+                    <svg 
+                        class="w-6 h-6 text-indigo-500 hover:text-indigo-700 transition" 
+                        xmlns="http://www.w3.org/2000/svg" 
+                        fill="none" 
+                        viewBox="0 0 24 24" 
+                        stroke="currentColor">
+                        <circle cx="11" cy="11" r="8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></circle>
+                        <line x1="20" y1="20" x2="16.65" y2="16.65" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></line>
+                    </svg>
+                </button>
+            </div>
+            
+            
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-container" class="container mx-auto flex-grow flex flex-col md:flex-row bg-lime p-8">
+        <!-- Sidebar Filters -->
+        <aside class="w-full md:w-1/4 p-4">
+            <div id="filters" hx-swap-oob="true" class="p-4 rounded-3xl border border-black backdrop-blur-md">
+            <form id="filter-form" 
+            hx-get="{% url 'search' %}" hx-target="#product-section"
+            hx-include="[name='q']"
+            hx-trigger="submit">
+
+            <button class="highlight-filter text-sm font-semibold mb-6" type="submit">Refine Results</button>
+    
+            <!-- Price Filter -->
+            <div id="price-filter" class="mb-4">
+                <h3 class="font-semibold text-gray-700">Price</h3>
+                <input type="text" name="lower-limit" placeholder="Lower Limit" class="mb-2">
+                <input type="text" name="upper-limit" placeholder="Upper Limit">
+            </div>
+    
+            <!-- Brand Filter -->
+            <div id="brand-filter" class="mb-4">
+                <h3 class="font-semibold text-gray-700">Brand</h3>
+                <ul class="mt-2 text-gray-600" id="brand-filters">
+                    
+                    {% for brand, selected in brands.items %}
+                        <li>
+                            <label class="flex items-center">
+                                <input name="brands" type="checkbox"
+                                value="{{brand}}" class="mr-2"
+                                {% if selected %} checked {% endif %}/>
+                                {{brand}}
+                            </label>
+                        </li>
+                    {% endfor %}
+                        
+                </ul>
+            </div>
+    
+            <!-- Quantity Filter -->
+            <!-- <div id="quantity-filter" class="mb-4">
+                <h3 class="font-semibold text-gray-700">Quantity</h3>
+                <ul class="mt-2 text-gray-600" id="quantity-filters">
+                    {% for price in prices %}
+                        <li>
+                            <label class="flex items-center">
+                                <input name="prices" type="checkbox"
+                                value="{{price}}" class="mr-2"/>
+                                {{price}}
+                            </label>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div> -->
+        </form>
+
+        </div>
+
+
+        </aside>
+        
+    
+        <!-- Product List -->
+
+        <section id="product-section" class="w-full md:w-3/4 p-4 flex flex-col md:flex-row">
+            
+            {% if query %}
+            {% include 'products/partials/search_results.html' %}
+            {% endif %}
+                
+        </section>
+    </main>
+    
+
+    <footer class="bg-gray-800 p-4 text-white text-center mt-8">
+        <p>&copy; 2024 JioBasket. All rights reserved.</p>
+    </footer>
+
+{% endblock content %}
+
+
+{% block script %}
+fuction getLow() {
+    return document.getElementById("lower-limit").value;
+}
+fuction getHigh() {
+    return document.getElementById("uppper-limit").value;
+}
+function getBrands() {
+    let brands = [];
+    const checked = document.querySelectorAll("#brand-filters input[type=checkbox]:checked");
+    checked.forEach((checkbox) => {
+        brands.push(checkbox.value);
+    });
+    return brands;
+}
+function getQuery() {
+    return document.getElementById("search-bar").value;
+}
+{% endblock script %}

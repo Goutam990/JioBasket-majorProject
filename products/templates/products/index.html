@@ -1,0 +1,62 @@
+{% extends 'products/base.html' %}
+{% load static %}
+
+{% block title %}
+    Jio Basket
+{% endblock title %}
+
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock links %}
+    
+
+
+{% block content %}
+    <!-- Main container -->
+    <div class="h-screen bg-cover bg-center flex items-center justify-center" style="background-image: url('{% static 'imgs/bg_1.jpg' %}')">
+    
+        <!-- Logo and Search Bar Container -->
+        <div class="relative flex flex-col items-center transform translate-y-12">
+            
+            <!-- Logo -->
+            <img src="{% static 'imgs/jiobasket-icon.png' %}" alt="Jio Basket" class="w-80 h-auto mb-4">
+    
+            <!-- Search Bar -->
+            <div class="relative w-full max-w-2xl">
+                <form action="/" method="get">
+                <input 
+                    type="text" 
+                    id="search-input"
+                    name="q"
+                    value=""
+                    placeholder="Search & Compare Products" 
+                    class="w-full p-3 pl-14 pr-12 border border-gray-300 rounded-full bg-gray-50 shadow-sm focus:outline-none focus:ring-4 focus:ring-indigo-300 focus:border-transparent transition-transform transform hover:scale-105"
+                >
+                
+                <button 
+                    id="search-button" 
+                    class="absolute left-4 top-1/2 transform -translate-y-1/2"
+                    aria-label="Search"
+                    type="submit">
+                    <svg 
+                        class="w-6 h-6 text-indigo-500 hover:text-indigo-700 transition" 
+                        xmlns="http://www.w3.org/2000/svg" 
+                        fill="none" 
+                        viewBox="0 0 24 24" 
+                        stroke="currentColor">
+                        <circle cx="11" cy="11" r="8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></circle>
+                        <line x1="20" y1="20" x2="16.65" y2="16.65" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></line>
+                    </svg>
+                </button>
+            </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+
+{% block script %}
+{% endblock script %}
+    

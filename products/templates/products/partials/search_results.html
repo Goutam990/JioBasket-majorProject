@@ -1,0 +1,63 @@
+            <div class="w-full md:w-1/2 pr-4">
+                <h2 class="highlight-jio text-xl font-bold text-center mb-4">JioMart</h2>
+                <div class="grid grid-cols-2 gap-6" id="jiomart-products">
+                    
+                    {% for product in products %}
+                        
+                        {% if product.vendor == "jiomart" %}
+                        <a href="{{product.absolute_url}}">
+                            <div class="bg-white p-4 rounded-lg shadow-md">
+                                <img src="{{product.image_url}}" alt="{{product.name}}" class="w-full h-40 object-cover rounded-md mb-4">
+                                <h3 class="font-semibold text-gray-800">{{product.name}}</h3>
+                                <p class="text-gray-600">{{product.name}}</p>
+                                <p class="text-green-600 font-bold mt-2">Rs. {{product.price}}</p>
+                            </div>
+                        </a>
+                        {% endif %}
+                            
+                    {% endfor %}
+                        
+                </div>
+            </div>
+    
+            <div class="w-px bg-gray-300 my-4 md:my-0"></div>
+    
+            <div class="w-full md:w-1/2 pl-4">
+                <h2 class="highlight-bb text-xl font-bold text-center mb-4">BigBasket</h2>
+                <div class="grid grid-cols-2 gap-6" id="bigbasket-products">
+                    {% for product in products %}
+                        
+                        {% if product.vendor == "bigbasket" %}
+                        <a href="{{product.absolute_url}}">
+                            <div class="bg-white p-4 rounded-lg shadow-md">
+                                <img src="{{product.image_url}}" alt="{{product.name}}" class="w-full h-40 object-cover rounded-md mb-4">
+                                <h3 class="font-semibold text-gray-800">{{product.name}}</h3>
+                                <p class="text-gray-600">{{product.name}}</p>
+                                <p class="text-green-600 font-bold mt-2">Rs. {{product.price}}</p>
+                            </div>
+                        </a>
+                        {% endif %}
+                            
+                    {% endfor %}
+                </div>
+            </div>
+
+            {% if not query %}
+            <div id="brand-filter" hx-swap-oob="true" class="mb-4">
+                <h3 class="font-semibold text-gray-700">Brand</h3>
+                <ul class="mt-2 text-gray-600" id="brand-filters">
+                    
+                    {% for brand, selected in brands.items %}
+                        <li>
+                            <label class="flex items-center">
+                                <input name="brands" type="checkbox"
+                                value="{{brand}}" class="mr-2"
+                                {% if selected %} checked {% endif %}/>
+                                {{brand}}
+                            </label>
+                        </li>
+                    {% endfor %}
+                        
+                </ul>
+            </div>
+            {% endif %}
