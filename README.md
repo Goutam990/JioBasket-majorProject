@@ -18,7 +18,7 @@ JioBasket is a Django-based web application that allows users to compare product
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/JioBasket.git
+   git clone https://github.com/gajeet11000/jiobasket-major.git
    cd JioBasket
    ```
 
